@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Consulta de Veículos Licenciados — IEMA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #EEF2ED;
+    --paper: #FFFFFF;
+    --ink: #16241C;
+    --ink-soft: #4A5A50;
+    --green-deep: #1F4D3D;
+    --green-mid: #4C7A63;
+    --green-line: #C6D3C9;
+    --amber: #B4692B;
+    --amber-bg: #FBF1E6;
+    --red: #A23B32;
+    --red-bg: #FAECEA;
+  }
+  *{ box-sizing: border-box; }
+  body{
+    margin:0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'IBM Plex Sans', sans-serif;
+    min-height: 100vh;
+  }
+  .wrap{
+    max-width: 620px;
+    margin: 0 auto;
+    padding: 48px 20px 80px;
+  }
+  header{
+    border-bottom: 1px solid var(--green-line);
+    padding-bottom: 20px;
+    margin-bottom: 32px;
+  }
+  .kicker{
+    font-size: 13px;
+    color: var(--green-mid);
+    letter-spacing: 0.02em;
+    margin: 0 0 6px;
+  }
+  h1{
+    font-family: 'Source Serif 4', serif;
+    font-weight: 600;
+    font-size: 28px;
+    margin: 0 0 8px;
+    color: var(--green-deep);
+    line-height: 1.25;
+  }
+  .lede{
+    margin: 0;
+    color: var(--ink-soft);
+    font-size: 15px;
+    line-height: 1.5;
+    max-width: 50ch;
+  }
+  .search-row{
+    display:flex;
+    gap: 10px;
+    margin-bottom: 8px;
+  }
+  input[type="text"]{
+    flex: 1;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 18px;
+    letter-spacing: 0.06em;
+    padding: 14px 16px;
+    border: 1.5px solid var(--green-line);
+    border-radius: 6px;
+    background: var(--paper);
+    color: var(--ink);
+    text-transform: uppercase;
+  }
+  input[type="text"]:focus{
+    outline: none;
+    border-color: var(--green-deep);
+  }
+  input[type="text"]::placeholder{
+    text-transform: none;
+    color: #94a39a;
+    letter-spacing: normal;
+  }
+  button{
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    padding: 0 22px;
+    border: none;
+    border-radius: 6px;
+    background: var(--green-deep);
+    color: #fff;
+    cursor: pointer;
+    transition: background 0.15s ease;
+  }
+  button:hover{ background: #16382c; }
+  button:focus-visible{ outline: 2px solid var(--green-mid); outline-offset: 2px; }
+
+  .hint{
+    font-size: 13px;
+    color: var(--ink-soft);
+    margin: 0 0 36px;
+  }
+  .hint button.chip{
+    font-size: 13px;
+    padding: 3px 10px;
+    background: var(--paper);
+    color: var(--green-deep);
+    border: 1px solid var(--green-line);
+    border-radius: 20px;
+    margin-left: 6px;
+    cursor: pointer;
+  }
+  .hint button.chip:hover{ border-color: var(--green-mid); }
+
+  #result{ min-height: 40px; }
+
+  .card{
+    background: var(--paper);
+    border: 1px solid var(--green-line);
+    border-radius: 10px;
+    overflow: hidden;
+    animation: rise 0.25s ease;
+  }
+  @keyframes rise{
+    from{ opacity: 0; transform: translateY(6px); }
+    to{ opacity: 1; transform: translateY(0); }
+  }
+  .card-top{
+    display:flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 22px;
+    border-bottom: 1px solid var(--green-line);
+  }
+  .plate{
+    font-family: 'Source Serif 4', serif;
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+  }
+  .badge{
+    font-size: 13px;
+    font-weight: 500;
+    padding: 5px 12px;
+    border-radius: 20px;
+  }
+  .badge.ok{ background: #E7F0EA; color: var(--green-deep); }
+  .badge.no{ background: var(--red-bg); color: var(--red); }
+  .badge.warn{ background: var(--amber-bg); color: var(--amber); }
+
+  .card-body{ padding: 20px 22px 22px; }
+  .row{
+    display:flex;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 10px 0;
+    border-bottom: 1px solid #EEF1EC;
+    font-size: 14.5px;
+  }
+  .row:last-child{ border-bottom: none; }
+  .row .label{ color: var(--ink-soft); }
+  .row .value{ text-align: right; font-weight: 500; }
+
+  .empty, .not-found{
+    color: var(--ink-soft);
+    font-size: 14.5px;
+    padding: 16px 0;
+  }
+  .not-found strong{ color: var(--ink); }
+
+  footer{
+    margin-top: 56px;
+    padding-top: 20px;
+    border-top: 1px solid var(--green-line);
+    font-size: 13px;
+    color: var(--ink-soft);
+    line-height: 1.6;
+  }
+  footer strong{ color: var(--ink); font-weight: 500; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <p class="kicker">IEMA · Sistema de Licenciamento</p>
+    <h1>Consulta de veículos licenciados</h1>
+    <p class="lede">Digite a placa para verificar se o veículo está ativamente licenciado para transporte de material dentro do estado.</p>
+  </header>
+
+  <div class="search-row">
+    <input type="text" id="plateInput" placeholder="Ex: ABC1D23" maxlength="8" autocomplete="off">
+    <button id="searchBtn">Consultar</button>
+  </div>
+  <p class="hint">Placas de exemplo neste protótipo:
+    <button class="chip" data-plate="RJA2B34">RJA2B34</button>
+    <button class="chip" data-plate="LMN4C56">LMN4C56</button>
+    <button class="chip" data-plate="XYZ7D89">XYZ7D89</button>
+  </p>
+
+  <div id="result"></div>
+
+  <footer>
+    Este é um <strong>protótipo</strong> com dados fictícios. Em produção, a consulta seria feita diretamente na base de processos do IEMA, cobrindo licenças por tipo de material — Resíduos Perigosos, Produtos Perigosos, Resíduos da Saúde, Resíduos de Construção Civil ou Resíduos não perigosos — a empresa responsável e o andamento do processo físico como um todo.
+  </footer>
+
+</div>
+
+<script>
+  const db = {
+    "RJA2B34": {
+      status: "licenciado",
+      material: "Resíduos de Construção Civil",
+      licenca: "LAU-118/2026",
+      processo: "42314321",
+      empresa: "Transportadora Verde Vale Ltda.",
+      cnpj: "12.345.678/0001-90",
+      validade: "14/03/2027"
+    },
+    "LMN4C56": {
+      status: "vencendo",
+      material: "Resíduos Perigosos",
+      licenca: "LAU-047/2023",
+      processo: "58291046",
+      empresa: "EcoTrans Logística Ambiental S.A.",
+      cnpj: "98.765.432/0001-11",
+      validade: "30/09/2026"
+    },
+    "XYZ7D89": {
+      status: "nao_licenciado",
+      material: null,
+      licenca: null,
+      processo: null,
+      empresa: null,
+      cnpj: null,
+      validade: null
+    }
+  };
+
+  const input = document.getElementById('plateInput');
+  const btn = document.getElementById('searchBtn');
+  const result = document.getElementById('result');
+
+  function normalize(v){
+    return v.toUpperCase().replace(/[^A-Z0-9]/g, '');
+  }
+
+  function render(plateRaw){
+    const plate = normalize(plateRaw);
+    if(!plate){
+      result.innerHTML = '<p class="empty">Digite uma placa para consultar.</p>';
+      return;
+    }
+    const data = db[plate];
+    if(!data){
+      result.innerHTML = `
+        <div class="card">
+          <div class="card-body">
+            <p class="not-found">Nenhum registro encontrado para <strong>${plate}</strong> na base do IEMA.</p>
+          </div>
+        </div>`;
+      return;
+    }
+
+    if(data.status === 'nao_licenciado'){
+      result.innerHTML = `
+        <div class="card">
+          <div class="card-top">
+            <span class="plate">${plate}</span>
+            <span class="badge no">Não licenciado</span>
+          </div>
+          <div class="card-body">
+            <p class="not-found">Este veículo não possui licença ativa para transporte de material junto ao IEMA.</p>
+          </div>
+        </div>`;
+      return;
+    }
+
+    const badge = data.status === 'licenciado'
+      ? '<span class="badge ok">Licenciado</span>'
+      : '<span class="badge warn">Vencendo</span>';
+
+    result.innerHTML = `
+      <div class="card">
+        <div class="card-top">
+          <span class="plate">${plate}</span>
+          ${badge}
+        </div>
+        <div class="card-body">
+          <div class="row"><span class="label">Empresa</span><span class="value">${data.empresa}</span></div>
+          <div class="row"><span class="label">CNPJ</span><span class="value">${data.cnpj}</span></div>
+          <div class="row"><span class="label">Material transportado</span><span class="value">${data.material}</span></div>
+          <div class="row"><span class="label">Nº da licença</span><span class="value">${data.licenca}</span></div>
+          <div class="row"><span class="label">Nº do processo físico</span><span class="value">${data.processo}</span></div>
+          <div class="row"><span class="label">Validade da licença</span><span class="value">${data.validade}</span></div>
+        </div>
+      </div>`;
+  }
+
+  btn.addEventListener('click', () => render(input.value));
+  input.addEventListener('keydown', (e) => { if(e.key === 'Enter') render(input.value); });
+  document.querySelectorAll('.chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      input.value = chip.dataset.plate;
+      render(chip.dataset.plate);
+    });
+  });
+
+  render('');
+</script>
+</body>
+</html>
