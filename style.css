@@ -1,0 +1,113 @@
+:root{
+  --green-deep:#163a28; --green:#1f6b47; --green-light:#58a378;
+  --menu-bg:#dfead2; --ink:#152118; --ink-soft:#56675c;
+  --border:#d8e3d1; --bg-page:#f3f6f1; --card:#ffffff;
+  --amber:#b4692b; --amber-bg:#fbf1e6; --red:#a23b32; --red-bg:#faecea;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:'IBM Plex Sans',system-ui,sans-serif;background:var(--bg-page);color:var(--ink)}
+a{color:var(--green);text-decoration:none}
+
+/* ---------- Cabeçalho institucional ---------- */
+.site-header{width:100%}
+
+.topbar{background:#fff;border-bottom:1px solid var(--border);font-size:12.5px;color:#3c463f}
+.topbar-inner{max-width:1280px;margin:0 auto;padding:7px 24px;display:flex;gap:20px;justify-content:flex-end;flex-wrap:wrap}
+.tb-item{display:flex;align-items:center;gap:5px;white-space:nowrap}
+
+.mainhead{background:#ffffff;border-bottom:1px solid var(--border);padding:18px 0}
+.mainhead-inner{max-width:1280px;margin:0 auto;padding:0 24px;display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
+.brand img.iema-logo{height:62px;width:auto;display:block}
+.gov img.gov-badge{height:54px;width:auto;display:block;border-radius:6px}
+
+.menubar{background:var(--menu-bg);border-bottom:1px solid #cfe0c5}
+.menubar-inner{max-width:1280px;margin:0 auto;padding:10px 24px;display:flex;justify-content:space-between;align-items:center}
+.menu-btn{background:none;border:none;font-weight:700;font-size:13.5px;color:var(--ink);cursor:pointer;letter-spacing:.03em;padding:4px 0;font-family:inherit}
+.social{display:flex;gap:10px;font-size:11px;color:var(--green-deep);font-weight:700}
+.soc{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#fff}
+
+/* ---------- Conteúdo da página ---------- */
+.page-wrap{max-width:1280px;margin:0 auto;padding:36px 24px 72px}
+.crumb{font-size:12.5px;color:var(--ink-soft);margin:0 0 16px}
+.crumb a{font-weight:600}
+.crumb strong{color:var(--ink)}
+
+.page-title{font-family:'Source Serif 4',serif;font-size:30px;color:var(--green-deep);margin:0 0 8px;font-weight:600}
+.page-sub{color:var(--ink-soft);font-size:14.5px;max-width:68ch;margin:0 0 28px;line-height:1.5}
+
+.detail-top{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:6px}
+.detail-top .page-title{margin:0}
+
+/* ---------- Estatísticas (tela inicial) ---------- */
+.stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:28px}
+.stat{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:18px 20px}
+.stat-num{font-family:'Source Serif 4',serif;font-size:26px;font-weight:700;color:var(--green-deep)}
+.stat-label{font-size:12.5px;color:var(--ink-soft);margin-top:4px}
+
+/* ---------- Lista de processos ---------- */
+.toolbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:12px}
+.toolbar-count{font-size:13px;color:var(--ink-soft);font-weight:600}
+
+.btn-primary{background:var(--green-deep);color:#fff;border:none;padding:12px 20px;border-radius:6px;font-weight:600;font-size:14px;cursor:pointer;text-decoration:none;display:inline-block;font-family:inherit}
+.btn-primary:hover{background:#0f2c1e}
+.btn-secondary{background:#fff;border:1.5px solid var(--border);color:var(--ink);padding:12px 20px;border-radius:6px;font-weight:600;font-size:14px;text-decoration:none;display:inline-block;cursor:pointer;font-family:inherit}
+.btn-secondary:hover{border-color:var(--green)}
+
+.proc-list{display:flex;flex-direction:column;gap:14px}
+.proc-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:20px 24px;display:flex;justify-content:space-between;align-items:center;gap:20px;color:var(--ink);transition:border-color .15s}
+.proc-card:hover{border-color:var(--green)}
+.proc-main{display:flex;flex-direction:column;gap:4px}
+.proc-num{font-family:'Source Serif 4',serif;font-weight:600;font-size:17px;color:var(--green-deep)}
+.proc-company{font-size:14.5px;color:var(--ink)}
+.proc-meta{font-size:12.5px;color:var(--ink-soft)}
+.proc-right{display:flex;align-items:center;gap:16px}
+.arrow{color:var(--green);font-size:18px}
+
+.badge{font-size:12.5px;font-weight:600;padding:5px 12px;border-radius:20px;white-space:nowrap}
+.badge.ok{background:#e4f0e6;color:var(--green-deep)}
+.badge.warn{background:var(--amber-bg);color:var(--amber)}
+.badge.review{background:#e8eef8;color:#355694}
+.badge.hold{background:#f1eee8;color:#7a6a4d}
+
+/* ---------- Tela de detalhe ---------- */
+.banner-warn{background:var(--amber-bg);border:1px solid #efd3b3;color:var(--amber);border-radius:8px;padding:12px 18px;font-size:13.5px;margin:0 0 24px}
+.banner-review{background:#e8eef8;border:1px solid #c8d6ef;color:#355694;border-radius:8px;padding:12px 18px;font-size:13.5px;margin:0 0 24px}
+
+.info-card{background:var(--card);border:1px solid var(--border);border-radius:10px;margin:0 0 36px;overflow:hidden}
+.info-row{display:flex;justify-content:space-between;padding:14px 24px;border-bottom:1px solid #eef2ec;font-size:14.5px;gap:16px}
+.info-row:last-child{border-bottom:none}
+.info-row .label{color:var(--ink-soft)}
+.info-row .value{font-weight:600;text-align:right}
+
+.section-title{font-family:'Source Serif 4',serif;font-size:19px;color:var(--green-deep);margin:0 0 14px}
+.vehicle-list{display:flex;flex-direction:column;gap:10px}
+.vehicle-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:14px 20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
+.v-plate{font-family:'Source Serif 4',serif;font-weight:600;font-size:16px;letter-spacing:.03em}
+.v-type{font-size:13px;color:var(--ink-soft)}
+
+/* ---------- Formulário de cadastro ---------- */
+.form-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:32px;max-width:760px}
+.field{margin-bottom:20px;display:flex;flex-direction:column;gap:6px}
+.field label{font-size:13.5px;font-weight:600;color:var(--ink)}
+.field input,.field select,.field textarea{font-family:'IBM Plex Sans',sans-serif;font-size:14.5px;padding:11px 14px;border:1.5px solid var(--border);border-radius:6px;background:#fff;color:var(--ink);width:100%}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--green)}
+.field textarea{resize:vertical;font-family:'IBM Plex Sans',sans-serif}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.hint-text{font-size:12px;color:var(--ink-soft)}
+.form-actions{display:flex;gap:12px;margin-top:8px}
+
+.success-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:48px 40px;text-align:center;max-width:640px;display:none}
+.success-card.show{display:block}
+.success-icon{width:56px;height:56px;border-radius:50%;background:#e4f0e6;color:var(--green-deep);display:flex;align-items:center;justify-content:center;font-size:26px;margin:0 auto 18px;font-weight:700}
+.success-card h2{font-family:'Source Serif 4',serif;font-size:21px;color:var(--green-deep);margin:0 0 10px}
+.success-card p{color:var(--ink-soft);font-size:14.5px;line-height:1.55;margin:0 0 24px}
+.success-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+
+footer.pfooter{margin-top:56px;padding-top:20px;border-top:1px solid var(--border);font-size:12.5px;color:var(--ink-soft);line-height:1.6}
+
+@media (max-width: 640px){
+  .field-row{grid-template-columns:1fr}
+  .stats-row{grid-template-columns:1fr}
+  .proc-card{flex-direction:column;align-items:flex-start}
+  .proc-right{width:100%;justify-content:space-between}
+}

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cadastrar processo — Licenciamento IEMA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="topbar">
+    <div class="topbar-inner">
+      <span class="tb-item">ⓘ Acesso à Informação</span>
+      <span class="tb-item">⌕ Transparência</span>
+      <span class="tb-item">🎧 Ouvidoria</span>
+      <span class="tb-item">🔒 Administrador</span>
+      <span class="tb-item">✉</span>
+      <span class="tb-item">Mapa do Site</span>
+      <span class="tb-item">♿</span>
+      <span class="tb-item">A− A A+</span>
+    </div>
+  </div>
+  <div class="mainhead">
+    <div class="mainhead-inner">
+      <div class="brand">
+        <img src="assets/iema-logo.png" alt="IEMA — Instituto Estadual de Meio Ambiente" class="iema-logo">
+      </div>
+      <div class="gov">
+        <img src="assets/governo-es.png" alt="Governo do Estado do Espírito Santo" class="gov-badge">
+      </div>
+    </div>
+  </div>
+  <nav class="menubar">
+    <div class="menubar-inner">
+      <button class="menu-btn">MENU ⌄</button>
+      <div class="social">
+        <span class="soc">f</span><span class="soc">ig</span><span class="soc">in</span><span class="soc">yt</span><span class="soc">⌕</span>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<div class="page-wrap">
+  <p class="crumb"><a href="index.html">← Voltar para processos</a></p>
+  <h1 class="page-title">Cadastrar novo processo</h1>
+  <p class="page-sub">Preencha os dados da empresa, do processo e dos veículos para iniciar um novo processo de licenciamento ambiental.</p>
+
+  <div class="form-card" id="formCard">
+    <div class="field">
+      <label for="empresa">Nome da empresa</label>
+      <input type="text" id="empresa" placeholder="Ex: Transportadora Vale Verde Ltda.">
+    </div>
+
+    <div class="field-row">
+      <div class="field">
+        <label for="cnpj">CNPJ</label>
+        <input type="text" id="cnpj" placeholder="00.000.000/0000-00">
+      </div>
+      <div class="field">
+        <label for="material">Tipo de licença / material</label>
+        <select id="material">
+          <option>Resíduos Perigosos</option>
+          <option>Produtos Perigosos</option>
+          <option>Resíduos da Saúde</option>
+          <option>Resíduos de Construção Civil</option>
+          <option>Resíduos não Perigosos</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="field-row">
+      <div class="field">
+        <label for="processo">Nº do processo físico</label>
+        <input type="text" id="processo" placeholder="Ex: 20260001" maxlength="8">
+        <span class="hint-text">Padrão de 8 dígitos</span>
+      </div>
+      <div class="field">
+        <label for="licenca">Nº da licença</label>
+        <input type="text" id="licenca" placeholder="Ex: LAU-215/2026">
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="validade">Validade da licença</label>
+      <input type="date" id="validade">
+    </div>
+
+    <div class="field">
+      <label for="veiculos">Veículos a cadastrar</label>
+      <textarea id="veiculos" rows="3" placeholder="Uma placa por linha, ex: RHZ4A12"></textarea>
+      <span class="hint-text">Você poderá adicionar outros veículos depois pela tela do processo</span>
+    </div>
+
+    <div class="field">
+      <label for="obs">Observações</label>
+      <textarea id="obs" rows="3" placeholder="Informações adicionais (opcional)"></textarea>
+    </div>
+
+    <div class="form-actions">
+      <button class="btn-primary" onclick="cadastrarProcesso()">Cadastrar processo</button>
+      <a class="btn-secondary" href="index.html">Cancelar</a>
+    </div>
+  </div>
+
+  <div class="success-card" id="successCard">
+    <div class="success-icon">✓</div>
+    <h2>Processo cadastrado com sucesso</h2>
+    <p>Este é um protótipo — nenhum dado foi enviado de fato. Em produção, o processo entraria na fila de análise do IEMA e receberia um número de protocolo.</p>
+    <div class="success-actions">
+      <button class="btn-primary" onclick="novoCadastro()">Cadastrar outro processo</button>
+      <a class="btn-secondary" href="index.html">Ver lista de processos</a>
+    </div>
+  </div>
+</div>
+
+<script>
+  function cadastrarProcesso(){
+    document.getElementById('formCard').style.display = 'none';
+    document.getElementById('successCard').classList.add('show');
+  }
+  function novoCadastro(){
+    document.getElementById('successCard').classList.remove('show');
+    document.getElementById('formCard').style.display = 'block';
+    document.querySelectorAll('#formCard input, #formCard textarea').forEach(el => el.value = '');
+    document.getElementById('material').selectedIndex = 0;
+  }
+</script>
+
+</body>
+</html>
